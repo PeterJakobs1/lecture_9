@@ -1,6 +1,8 @@
 package no.kristiania.http;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.file.Files;
@@ -77,6 +79,20 @@ public class HttpServer {
 
             writeOkResponse(clientSocket, responseText, "text/html");
         } else {
+            getClass().getResourceAsStream(fileTarget);
+
+
+            /* Kode som må til får å få jar - til å kunne lese alle filer
+
+             InputStream fileResorce = getClass().getResourceAsStream(fileTarget);
+            if (fileResorce != null){
+                ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                fileResorce.transferTo(buffer);
+                String responseText = buffer.toString();
+            }
+             */
+
+
             if (rootDirectory != null && Files.exists(rootDirectory.resolve(fileTarget.substring(1)))) {
                 String responseText = Files.readString(rootDirectory.resolve(fileTarget.substring(1)));
 
